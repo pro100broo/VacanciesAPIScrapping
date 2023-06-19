@@ -18,7 +18,7 @@ class Vacancy:
                f"\nDescription: {self.get_info().description}"
 
     def __lt__(self, other):
-        return self._calculate_average_salary() < other.calculate_average_salary()
+        return self.calculate_average_salary() < other.calculate_average_salary()
 
     def get_info(self) -> VacancyInfo:
         return self._info
@@ -30,7 +30,7 @@ class Vacancy:
         else:
             return "No description"
 
-    def _calculate_average_salary(self) -> float:
+    def calculate_average_salary(self) -> float:
         if isinstance(self._info.salary.min, int) and isinstance(self._info.salary.max, int):
             return (self._info.salary.min + self._info.salary.max) / 2
         else:
