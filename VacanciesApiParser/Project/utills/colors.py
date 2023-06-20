@@ -1,3 +1,8 @@
+"""
+Class for the color syntax
+
+"""
+
 from colorama import Fore
 
 

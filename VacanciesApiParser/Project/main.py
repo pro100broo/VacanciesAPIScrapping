@@ -1,3 +1,8 @@
+"""
+Main function for user interaction
+
+"""
+
 from hh import HeadHunterParser
 from superjob import SuperJobParser
 from json_db import JsonDB
@@ -95,5 +100,3 @@ if __name__ == '__main__':
     hh_parser = HeadHunterParser()
     superjob_parser = SuperJobParser()
     main_loop()
-
-

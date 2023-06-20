@@ -28,10 +28,15 @@ class HeadHunterParser(GenericParser):
         return requests.get(url)
 
     def parse_vacancy(self, vacancy_info: dict) -> Vacancy:
+        description = vacancy_info["snippet"]["requirement"]\
+            .replace("<highlighttext>", "")\
+            .replace("</highlighttext>", "")\
+            if vacancy_info["snippet"]["requirement"] else "No description"
+
         return Vacancy(
             title=vacancy_info["name"],
             url=vacancy_info["alternate_url"],
-            description=vacancy_info["snippet"]["requirement"],
+            description=description,
             salary=Salary(
                 min=vacancy_info["salary"]["from"] if vacancy_info["salary"]["from"] else "No info",
                 max=vacancy_info["salary"]["to"] if vacancy_info["salary"]["to"] else "No info",
