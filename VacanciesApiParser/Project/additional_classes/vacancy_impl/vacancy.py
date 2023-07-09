@@ -2,6 +2,7 @@
 Class for interacting with data about vacancies
 
 """
+from bs4 import BeautifulSoup
 
 from .models import VacancyInfo, Salary
 
@@ -18,7 +19,7 @@ class Vacancy:
         self._info = VacancyInfo(
             title=title,
             url=url,
-            description=description,
+            description=self.clean_html_tags(description),
             salary=salary
         )
 
@@ -34,6 +35,10 @@ class Vacancy:
 
     def get_info(self) -> VacancyInfo:
         return self._info
+
+    @staticmethod
+    def clean_html_tags(html_text: str) -> str:
+        return BeautifulSoup(html_text, "lxml").get_text().strip()
 
     def calculate_average_salary(self) -> float:
         """

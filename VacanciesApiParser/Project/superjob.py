@@ -10,7 +10,7 @@ from utills.web_exceptions_handling import *
 
 class SuperJobParser(GenericParser):
 
-    def get_vacancies(self, pages_count: int, keywords: list[str]) -> list[Vacancy]:
+    def get_vacancies(self, pages_count: int, keywords: list[str], website="superjob") -> list[Vacancy]:
         vacancies = []
 
         content = '&'.join(f"keywords%5B{i}%5D%5Bsrws%5D=10&"
@@ -18,7 +18,7 @@ class SuperJobParser(GenericParser):
                            f"keywords%5B{i}%5D%5Bkeys%5D={keyword}" for i, keyword in enumerate(keywords, start=1))
 
         for page in range(1, pages_count + 1):
-            url = f"https://api.superjob.ru/2.0/vacancies/?keywords%5B0%5D%5Bkeys%5D=&{content}&page={page}"
+            url = f"https://api.{website}.ru/2.0/vacancies/?keywords%5B0%5D%5Bkeys%5D=&{content}&page={page}"
 
             if response := self.make_request(url):
                 for vacancy in response.json()["objects"]:

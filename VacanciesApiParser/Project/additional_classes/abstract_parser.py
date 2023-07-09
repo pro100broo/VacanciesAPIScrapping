@@ -18,10 +18,12 @@ from .vacancy_impl.vacancy import Vacancy
 class GenericParser(ABC):
 
     @abstractmethod
-    def get_vacancies(self, pages_count: int, keywords: list[str]) -> list[Vacancy]:
+    def get_vacancies(self, pages_count: int, keywords: list[str], website: str) -> list[Vacancy]:
         """
         :param pages_count: Number of pages to parse (20 vacancies per page)
         :param keywords: List of words for searching in the vacancy description
+        :param website: Website name for searching vacancies
+
 
         :return: List of the class: 'Vacancy' objects containing information about vacancies
         """

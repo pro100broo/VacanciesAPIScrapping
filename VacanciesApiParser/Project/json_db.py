@@ -11,10 +11,10 @@ class JsonDB(GenericDB):
     @staticmethod
     @json_interaction_errors
     def get_vacancies() -> list[Vacancy]:
-        with open(PATH_TO_JSON_FILE, "r") as file:
+        with open(PATH_TO_JSON_FILE, "r", encoding="utf-8") as file:
             json_data = file.read()
 
-            vacancies_data = Vacancies.parse_raw(json_data)
+            vacancies_data = Vacancies.model_validate_json(json_data)
 
             return [
                 Vacancy(
@@ -29,14 +29,14 @@ class JsonDB(GenericDB):
     @staticmethod
     @json_interaction_errors
     def save_vacancies(vacancies: list[Vacancy]) -> None:
-        with open(PATH_TO_JSON_FILE, "w") as file:
+        with open(PATH_TO_JSON_FILE, "w", encoding="utf-8") as file:
             file.write(
                 Vacancies(
                     vacancies=[vacancy.get_info() for vacancy in vacancies]
-                ).json()
+                ).model_dump_json()
             )
 
     @staticmethod
     def delete_vacancies() -> None:
-        with open(PATH_TO_JSON_FILE, "w") as file:
+        with open(PATH_TO_JSON_FILE, "w", encoding="utf-8") as file:
             file.write("")
